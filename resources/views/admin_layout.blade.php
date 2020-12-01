@@ -291,6 +291,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
     
         });
+        $(document).on('click','#delete_gal_id',function(){
+            var gal_id=$(this).data('gal_id');       
+            var _token=$('input[name="_token"]').val();
+
+            $.ajax({
+                url:'{{ url('/del-gal')}}',
+                method:'post',
+                data:{gal_id:gal_id,_token:_token},
+                success:function(){
+                    load_gallery();
+                    $('#error_gallery').html('<span class="text-danger">Xóa Ảnh Thành Công !</span>');
+                }
+            })
+           
+    
+        });
 } );
 </script>	
 

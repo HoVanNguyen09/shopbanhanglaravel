@@ -24,6 +24,17 @@ class GalleryController extends Controller
         $gallery->save();
   
     }
+    public function del_gal(Request $request){
+        $gal_id=$request->gal_id;
+          
+        $gallery=Gallery::find($gal_id);
+
+       
+        unlink("public/uploads/gallery/".$gallery->gallery_image);
+        $gallery->delete();
+        
+  
+    }
 
     public function show_gallery_ajax(Request $request){
         
@@ -48,7 +59,7 @@ class GalleryController extends Controller
                 <td><label class="i-checks m-b-none">'.$i.'</label></td>
                 <td class="gal_name" data-gal_id="'.$item->gallery_id.'" contenteditable>'.$item->gallery_name.'</td>                 
                 <td><img class="img-thumbnail" width="120" height="120" src="'.url('public/uploads/gallery/'.$item->gallery_image).'"></td>
-                <td><button type="button" class="btn btn-danger"> Xóa </button></td>                  
+                <td><button id="delete_gal_id" data-gal_id="'.$item->gallery_id.'" type="button" class="btn btn-danger"> Xóa </button></td>                  
             </tr> ';
             $i++;
             }
